@@ -20,8 +20,12 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 on-focus-changed = ['exec-and-forget sketchybar --trigger front_app_switched']
 
 
-enable-normalization-flatten-containers = false
-enable-normalization-opposite-orientation-for-nested-containers = false
+# i3 doesn't have "normalizations" feature that why we disable them here.
+# But the feature is very helpful.
+# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
+# Give normalizations a chance and enable them back.
+# enable-normalization-flatten-containers = false
+# enable-normalization-opposite-orientation-for-nested-containers = false
 
 accordion-padding = 30
 
@@ -47,18 +51,16 @@ inherit-env-vars = true # If you don't touch "exec" section,
 PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
 
 [mode.main.binding]
-cmd-shift-space = 'layout floating tiling'
-cmd-r = [
+alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+alt-r = [
   'mode resize',
   'exec-and-forget sketchybar --trigger send_message MESSAGE="RESIZE MODE" HOLD="true"',
 ]
 
-cmd-keypadMinus = 'resize smart -70'
-cmd-keypadPlus = 'resize smart +70'
 
-cmd-g = 'mode join'
-cmd-q = ['close --quit-if-last-window']
-cmd-w = []
+alt-q = ['close --quit-if-last-window']
+
+# cmd-g = 'mode join'
 
 # All possible keys:
 # - Letters.        a, b, c, ..., z
@@ -76,16 +78,21 @@ cmd-w = []
 
 cmd-alt-shift-f = 'macos-native-fullscreen'
 cmd-alt-f = 'fullscreen'
+# alt-tab = 'workspace-back-and-forth'
+# alt-g = 'join-with horizontal'
+# alt-v = 'join-with vertical'
 
-alt-tab = 'workspace-back-and-forth'
-alt-g = 'split horizontal'
-alt-v = 'split vertical'
-alt-m = 'exec-and-forget sketchybar --trigger aerospace_switch'
 
-cmd-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop left'
-cmd-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop down'
-cmd-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop up'
-cmd-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop right'
+alt-m = [
+  'exec-and-forget sketchybar --trigger aerospace_switch',
+  'exec-and-forget sketchybar --trigger send_message MESSAGE="MENU MODE" HOLD="false"',
+]
+
+# i3 wraps focus by default
+alt-j = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-l = 'focus --boundaries-action wrap-around-the-workspace up'
+alt-semicolon = 'focus --boundaries-action wrap-around-the-workspace right'
 # cmd-left = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop left'
 # cmd-down = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop down'
 # cmd-up = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop up'
@@ -95,75 +102,51 @@ cmd-shift-h = 'move left'
 cmd-shift-j = 'move down'
 cmd-shift-k = 'move up'
 cmd-shift-l = 'move right'
-cmd-shift-left = 'move left'
-cmd-shift-down = 'move down'
-cmd-shift-up = 'move up'
-cmd-shift-right = 'move right'
+# cmd-shift-left = 'move left'
+# cmd-shift-down = 'move down'
+# cmd-shift-up = 'move up'
+# cmd-shift-right = 'move right'
 
-cmd-1 = 'workspace --auto-back-and-forth 1'  # Notes
-cmd-2 = 'workspace --auto-back-and-forth 2'  # Terminal
-cmd-3 = 'workspace --auto-back-and-forth 3'  # Browser
-cmd-4 = 'workspace --auto-back-and-forth 4'  # AltBrowser
-cmd-5 = 'workspace --auto-back-and-forth 5'  # Remote
-cmd-6 = 'workspace --auto-back-and-forth 6'  # Database
-cmd-7 = 'workspace --auto-back-and-forth 7'  # Chat
-cmd-8 = 'workspace --auto-back-and-forth 8'  # Mail
-cmd-9 = 'workspace --auto-back-and-forth 9'  # Music
-cmd-0 = 'workspace --auto-back-and-forth 10' # Secrets
+alt-s = 'layout v_accordion'               # 'layout stacking' in i3
+alt-w = 'layout h_accordion'               # 'layout tabbed' in i3
+alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
 
-cmd-shift-1 = 'move-node-to-workspace 1'
-cmd-shift-2 = 'move-node-to-workspace 2'
-cmd-shift-3 = 'move-node-to-workspace 3'
-cmd-shift-4 = 'move-node-to-workspace 4'
-cmd-shift-5 = 'move-node-to-workspace 5'
-cmd-shift-6 = 'move-node-to-workspace 6'
-cmd-shift-7 = 'move-node-to-workspace 7'
-cmd-shift-8 = 'move-node-to-workspace 8'
-cmd-shift-9 = 'move-node-to-workspace 9'
-cmd-shift-0 = 'move-node-to-workspace 10'
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
 
-cmd-tab = 'workspace-back-and-forth'
-cmd-shift-p = 'move-workspace-to-monitor --wrap-around next'
-# cmd-shift-p = [
-#   'move-node-to-monitor --wrap-around next',
-#   'focus-monitor next --wrap-around',
-# ]
-cmd-alt-h = []
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
 
-cmd-shift-s = [
-  'mode service',
-  'exec-and-forget sketchybar --trigger send_message MESSAGE="SERVICE MODE" HOLD="true"',
-]
+# ---------- WORKSPACES ----------
+[workspace-to-monitor-force-assignment]
+1 = 'main'         # Monitor sequence number from left to right. 1-based indexing
+2 = 'main'         # Main monitor
+3 = '^lg display$' # Non-main monitor in case when there are only two monitors
+4 = '^lg display$' # Case insensitive regex substring
+5 = 'main'
+6 = 'main'
+7 = 'main'
+8 = 'main'
+9 = 'main'
 
-[mode.service.binding]
-esc = [
-  'reload-config',
-  'exec-and-forget sketchybar --trigger hide_message',
-  'exec-and-forget sketchybar --reload',
-  'mode main',
-]
-r = ['flatten-workspace-tree', 'mode main'] # reset layout
-#s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
-
-
-b = [
-  'exec-and-forget ~/.config/aerospace/presentation.sh on',
-  'exec-and-forget sketchybar --bar height=0',
-  'exec-and-forget sketchybar --trigger hide_message',
-  'mode main',
-]
-shift-b = [
-  'exec-and-forget ~/.config/aerospace/presentation.sh off',
-  'exec-and-forget sketchybar --bar height=24',
-  'exec-and-forget sketchybar --trigger hide_message',
-  'mode main',
-]
-
-backspace = ['close-all-windows-but-current', 'mode main']
-
+# ---------- RESIZE MODE ----------
 [mode.resize.binding]
-keypadMinus = 'resize smart -70'
-keypadPlus = 'resize smart +70'
+minus = 'resize smart -70'
+equal = 'resize smart +70'
 h = ['resize width -64']
 j = ['resize height -64']
 k = ['resize height +64']
@@ -171,13 +154,57 @@ l = ['resize width +64']
 esc = ['mode main', 'exec-and-forget sketchybar --trigger hide_message']
 enter = ['mode main', 'exec-and-forget sketchybar --trigger hide_message']
 
-[mode.join.binding]
-h = ['join-with left', 'mode main']
-j = ['join-with down', 'mode main']
-k = ['join-with up', 'mode main']
-l = ['join-with right', 'mode main']
-cmd-h = ['join-with left', 'mode main']
-cmd-alt-h = ['join-with left', 'mode main']
+
+# ---------- SERVICE MODE ----------
+# cmd-tab = 'workspace-back-and-forth'
+# cmd-shift-p = 'move-workspace-to-monitor --wrap-around next'
+# cmd-shift-p = [
+#   'move-node-to-monitor --wrap-around next',
+#   'focus-monitor next --wrap-around',
+# ]
+# cmd-alt-h = []
+
+# cmd-shift-s = [
+#   'mode service',
+#   'exec-and-forget sketchybar --trigger send_message MESSAGE="SERVICE MODE" HOLD="true"',
+# ]
+
+# [mode.service.binding]
+# esc = [
+#   'reload-config',
+#   'exec-and-forget sketchybar --trigger hide_message',
+#   'exec-and-forget sketchybar --reload',
+#   'mode main',
+# ]
+# r = ['flatten-workspace-tree', 'mode main'] # reset layout
+# s = ['layout sticky tiling', 'mode main'] # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
+
+
+# b = [
+#   'exec-and-forget ~/.config/aerospace/presentation.sh on',
+#   'exec-and-forget sketchybar --bar height=0',
+#   'exec-and-forget sketchybar --trigger hide_message',
+#   'mode main',
+# ]
+# shift-b = [
+#   'exec-and-forget ~/.config/aerospace/presentation.sh off',
+#   'exec-and-forget sketchybar --bar height=24',
+#   'exec-and-forget sketchybar --trigger hide_message',
+#   'mode main',
+# ]
+
+# backspace = ['close-all-windows-but-current', 'mode main']
+
+# ---------- JOIN MODE ----------
+# [mode.join.binding]
+# h = ['join-with left', 'mode main']
+# j = ['join-with down', 'mode main']
+# k = ['join-with up', 'mode main']
+# l = ['join-with right', 'mode main']
+# cmd-h = ['join-with left', 'mode main']
+# cmd-alt-h = ['join-with left', 'mode main']
+
+# ---------- AUTO MOVE NODES ----------
 
 [[on-window-detected]]
 if.app-id = 'org.mozilla.com.zen.browser'

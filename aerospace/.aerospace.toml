@@ -219,6 +219,10 @@ if.app-id = 'md.obsidian'
 run = ['layout tiling', 'move-node-to-workspace 9']
 
 [[on-window-detected]]
+if.app-id = 'notion.id'
+run = ['layout tiling', 'move-node-to-workspace 9']
+
+[[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating']
 
